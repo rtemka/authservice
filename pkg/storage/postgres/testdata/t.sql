@@ -16,4 +16,10 @@ CREATE TABLE IF NOT EXISTS passwords (
     FOREIGN KEY(user_login) REFERENCES users(login)
 );
 
-CREATE INDEX IF NOT EXISTS passwords_login_idx ON passwords(user_login);
+INSERT INTO users(login, created_at, is_disabled)
+VALUES ('login1', 1658141437, FALSE),
+('login2', 1658141437, FALSE);
+
+INSERT INTO passwords(user_login, hash, generated_at, is_active)
+VALUES ('login1', 'h1', 1658141437, TRUE),
+('login2', 'h2', 1658141437, TRUE); 
