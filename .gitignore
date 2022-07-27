@@ -1,3 +1,6 @@
+tmp/
+bin/
+*.env
 *.txt
 *.pem
 *.pfx
