@@ -1,3 +1,5 @@
+// package postgres conforms the contract
+// of the authentication service.
 package postgres
 
 import (
@@ -139,7 +141,9 @@ func (p *Postgres) exec(ctx context.Context, sql string, args ...any) error {
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback(ctx)
+	defer func() {
+		_ = tx.Rollback(ctx)
+	}()
 
 	_, err = p.db.Exec(ctx, sql, args...)
 	if err != nil {
@@ -152,7 +156,7 @@ func (p *Postgres) exec(ctx context.Context, sql string, args ...any) error {
 // execBatch is helper function, runs
 // multiple batch queries *pgx.conn.Exec()
 // in one transaction. This queries must be ones
-// that don't return results (INSERT, UPDATE, DELETE)
+// that don't return results (INSERT, UPDATE, DELETE).
 func (p *Postgres) execBatch(ctx context.Context, stmts ...statement) error {
 
 	b := new(pgx.Batch)

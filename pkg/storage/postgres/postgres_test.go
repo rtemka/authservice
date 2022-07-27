@@ -8,7 +8,14 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	// envs can be not only in file
+	_ = godotenv.Load(filepath.Join("testdata", "test.env"))
+}
 
 const tdbEnv = "AUTH_TEST_DB"
 
@@ -136,35 +143,13 @@ func TestPostgres(t *testing.T) {
 	})
 }
 
-var testUser1 = domain.User{
-	Login:      "login1",
-	CreatedAt:  1658141437,
-	IsDisabled: false,
-	Password: domain.Password{
-		Hash:        "h1",
-		GeneratedAt: 1658141437,
-		IsActive:    true,
-	},
-}
+var testUser1 = domain.User{Login: "login1", CreatedAt: 1658141437, IsDisabled: false,
+	Password: domain.Password{Hash: "h1", GeneratedAt: 1658141437, IsActive: true}}
 
-var testUser2 = domain.User{
-	Login:      "login2",
-	CreatedAt:  1658141437,
-	IsDisabled: false,
-	Password: domain.Password{
-		Hash:        "h2",
-		GeneratedAt: 1658141437,
-		IsActive:    true,
-	},
-}
+// var testUser2 = domain.User{Login: "login2", CreatedAt: 1658141437, IsDisabled: false,
+// 	Password: domain.Password{Hash: "h2", GeneratedAt: 1658141437, IsActive: true},
+// }
 
-var testUser3 = domain.User{
-	Login:      "login3",
-	CreatedAt:  1658141437,
-	IsDisabled: false,
-	Password: domain.Password{
-		Hash:        "h3",
-		GeneratedAt: 1658141437,
-		IsActive:    true,
-	},
+var testUser3 = domain.User{Login: "login3", CreatedAt: 1658141437, IsDisabled: false,
+	Password: domain.Password{Hash: "h3", GeneratedAt: 1658141437, IsActive: true},
 }
